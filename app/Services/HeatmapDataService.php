@@ -18,7 +18,9 @@ class HeatmapDataService
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => http_build_query($payload),
-            CURLOPT_HTTPHEADER => ["Content-Type: application/x-www-form-urlencoded"]
+            CURLOPT_HTTPHEADER => ["Content-Type: application/x-www-form-urlencoded"],
+            CURLOPT_CONNECTTIMEOUT => 10, // wait max 10s to connect
+            CURLOPT_TIMEOUT => 30,        // max 15s total
         ]);
 
         $response = curl_exec($ch);

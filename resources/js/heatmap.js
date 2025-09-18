@@ -14,15 +14,16 @@
 
     function renderHeatmap(data) {
         // Clear container
-        
+
         if (!data) {
             console.log("Data is not valid")
             return
         };
 
         container.innerHTML = '';
-        
+
         const table = document.createElement('table');
+        table.id = "fhm-table";
         table.classList.add('heatmap-table');
         table.style.borderCollapse = 'collapse';
         table.style.width = '100%';
@@ -34,15 +35,15 @@
         trHead.innerHTML = '<th>Pair</th>';
 
         const timeframe_names = {
-            1 : "1 Min",
-            5 : "5 Min",
-            15 : "15 Min",
-            30 : "30 Min",
-            60 : "1 Hour",
-            240 : "$ Hour",
-            1440 : "Daily",
-            10080 : "Weekly",
-            43200 : "Monthly",
+            1: "1 Min",
+            5: "5 Min",
+            15: "15 Min",
+            30: "30 Min",
+            60: "1 Hour",
+            240: "$ Hour",
+            1440: "Daily",
+            10080: "Weekly",
+            43200: "Monthly",
         };
 
         timeframes.forEach(tf => {
@@ -78,6 +79,8 @@
 
         table.appendChild(tbody);
         container.appendChild(table);
+
+        let fhtable = new DataTable('#fhm-table');
     }
 
     // Initial load
