@@ -1,0 +1,71 @@
+/* Container */
+#fhm-heatmap {
+    overflow-x: auto;
+    max-width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Table */
+#fhm-heatmap table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 600px; /* ensures it doesn’t shrink too small */
+    table-layout: fixed;
+}
+
+/* Header */
+#fhm-heatmap th {
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    font-size: 12px;
+}
+
+/* Cells */
+#fhm-heatmap td {
+    padding: 8px;
+    text-align: center;
+    color: #010101;
+    font-weight: bold;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+/* Color gradients for pip/percent change */
+.heatmap-positive {
+    color: green !important;
+    /* background: linear-gradient(to right, #a5d6a7, #6ada6e); */
+}
+
+.heatmap-negative {
+    color: red !important; 
+    /* background: linear-gradient(to right, #ef9a9a, #ff6d63); */
+}
+
+.heatmap-neutral {
+    /* background: #ccc; */
+    color: #000;
+}
+
+/* Hover row highlight */
+#fhm-heatmap tbody tr {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+
+/* Hover row highlight */
+#fhm-heatmap tbody tr:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    #fhm-heatmap th, #fhm-heatmap td {
+        font-size: 12px;
+        padding: 6px;
+    }
+}

@@ -30,7 +30,7 @@ class ShortcodeController
         );
 
         wp_localize_script('fh-heatmap', 'FH_CONFIG', [
-            'restUrl' => esc_url_raw(rest_url('forex-heatmap/v1/data')),
+            'restUrl' => esc_url_raw(rest_url('fhm/v1/data')),
             'nonce'   => wp_create_nonce('wp_rest'),
         ]);
     }
