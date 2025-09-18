@@ -1,0 +1,19 @@
+<div id="fh-heatmap-root" data-fh-attrs='<?php echo json_encode($fhm_atts, 15, 512); ?>' class="fh-heatmap">
+
+ <div class="fh-controls">
+ <label>View:
+ <select id="fh-view-select">
+ <option value="percent" <?php if($fhm_atts['view'] === 'percent'): ?> selected <?php endif; ?>>Percent (%)</option>
+ <option value="pips" <?php if($fhm_atts['view'] === 'pips'): ?> selected <?php endif; ?>>Pips</option>
+ </select>
+ </label>
+
+ <label>Filter:
+ <input id="fh-filter" placeholder="e.g. USD, EUR" />
+ </label>
+
+ <button id="fh-sort-btn" data-order="desc">Sort by strength ↓</button>
+ </div>
+
+ <div id="fh-heatmap-container">Loading...</div>
+</div>

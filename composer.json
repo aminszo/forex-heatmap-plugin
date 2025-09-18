@@ -1,0 +1,19 @@
+{
+    "name": "amin/forex-heatmap",
+    "description": "A WordPress plugin to display live forex heatmap",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "ForexHeatmap\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Amin",
+            "email": "amin.salehizade@gmail.com"
+        }
+    ],
+    "require": {
+        "eftec/bladeone": "^4.19"
+    }
+}

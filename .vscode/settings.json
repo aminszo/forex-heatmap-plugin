@@ -1,0 +1,5 @@
+{
+	"intelephense.environment.includePaths": [
+        "/home/amin/localhost/local_webserver/test.local/",
+	]
+}
