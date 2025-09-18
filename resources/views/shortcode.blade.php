@@ -1,19 +1,73 @@
-<div id="fh-heatmap-root" data-fh-attrs='@json($fhm_atts)' class="fh-heatmap">
+<div id="fhm-heatmap"></div>
 
-    <div class="fh-controls">
-        <label>View:
-            <select id="fh-view-select">
-                <option value="percent" @if ($fhm_atts['view'] === 'percent') selected @endif>Percent (%)</option>
-                <option value="pips" @if ($fhm_atts['view'] === 'pips') selected @endif>Pips</option>
-            </select>
-        </label>
+<!-- include Chart.js from CDN -->
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
 
-        <label>Filter:
-            <input id="fh-filter" placeholder="e.g. USD, EUR" />
-        </label>
+<script>
+(async function() {
+    const container = document.getElementById('fhm-heatmap');
 
-        <button id="fh-sort-btn" data-order="desc">Sort by strength ↓</button>
-    </div>
+    async function fetchData() {
+        try {
+            const res = await fetch('<?php echo esc_url(rest_url('fhm/v1/data')); ?>');
+            const data = await res.json();
+            return data;
+        } catch (err) {
+            console.error('Error fetching heatmap data:', err);
+            return null;
+        }
+    }
 
-    <div id="fh-heatmap-container">Loading...</div>
-</div>
+    function renderHeatmap(data) {
+        // Clear container
+        container.innerHTML = '';
+
+        if (!data) return;
+
+        const table = document.createElement('table');
+        table.style.borderCollapse = 'collapse';
+        table.style.width = '100%';
+
+        // Create table header (timeframes)
+        const timeframes = Object.keys(data[Object.keys(data)[0]]); // take first pair
+        const thead = document.createElement('thead');
+        const trHead = document.createElement('tr');
+        trHead.innerHTML = '<th>Pair</th>';
+        timeframes.forEach(tf => {
+            trHead.innerHTML += `<th>${tf} min</th>`;
+        });
+        thead.appendChild(trHead);
+        table.appendChild(thead);
+
+        // Create table body
+        const tbody = document.createElement('tbody');
+        for (let pair in data) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${pair}</td>`;
+
+            timeframes.forEach(tf => {
+                const open = parseFloat(data[pair][tf].open);
+                const close = parseFloat(data[pair][tf].close);
+                const change = close - open; // pip change
+                const color = change > 0 ? '#4caf50' : change < 0 ? '#f44336' : '#ccc';
+                tr.innerHTML += `<td style="background:${color};color:#fff;text-align:center;">${change.toFixed(4)}</td>`;
+            });
+
+            tbody.appendChild(tr);
+        }
+
+        table.appendChild(tbody);
+        container.appendChild(table);
+    }
+
+    // Initial load
+    let heatmapData = await fetchData();
+    renderHeatmap(heatmapData);
+
+    // Auto-update every minute
+    setInterval(async () => {
+        heatmapData = await fetchData();
+        renderHeatmap(heatmapData);
+    }, 60000);
+})();
+</script>

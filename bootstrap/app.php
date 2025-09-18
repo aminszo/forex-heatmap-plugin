@@ -1,17 +1,10 @@
 <?php
 
 // Composer Autoloader
-require __DIR__ . '/vendor/autoload.php';
+require FHM_PLUGIN_DIR . '/vendor/autoload.php';
 
 use ForexHeatmap\Controllers\ShortcodeController;
 use ForexHeatmap\Controllers\HeatmapEndpointController;
-
-
-// Define plugin constants
-define('FHM_VERSION', '1.0.0');
-define('FHM_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('FHM_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('FHM_PLUGIN_FILE', __FILE__);
 
 
 // Register Shortcode
