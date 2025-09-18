@@ -40,7 +40,7 @@
             15: "15 Min",
             30: "30 Min",
             60: "1 Hour",
-            240: "$ Hour",
+            240: "4 Hour",
             1440: "Daily",
             10080: "Weekly",
             43200: "Monthly",
