@@ -1,6 +1,6 @@
 <?php
 
-namespace ForexHeatmap\Services;
+namespace FHM\Services;
 
 use eftec\bladeone\BladeOne;
 

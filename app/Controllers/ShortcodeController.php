@@ -1,8 +1,8 @@
 <?php
 
-namespace ForexHeatmap\Controllers;
+namespace FHM\Controllers;
 
-use ForexHeatmap\Services\ViewService as View;
+use FHM\Services\ViewService as View;
 
 class ShortcodeController
 {

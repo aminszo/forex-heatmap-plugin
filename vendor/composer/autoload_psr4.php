@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'eftec\\bladeone\\' => array($vendorDir . '/eftec/bladeone/lib'),
-    'ForexHeatmap\\' => array($baseDir . '/app'),
+    'FHM\\' => array($baseDir . '/app'),
 );

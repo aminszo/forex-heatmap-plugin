@@ -1,8 +1,8 @@
 <?php
 
-namespace ForexHeatmap\Controllers;
+namespace FHM\Controllers;
 
-use ForexHeatmap\Services\HeatmapDataService;
+use FHM\Services\HeatmapDataService;
 
 class HeatmapEndpointController
 {

@@ -1,5 +1,5 @@
 <?php
-namespace ForexHeatmap\Config;
+namespace FHM\Config;
 
 class Settings {
     public static function defaults() {

@@ -1,8 +1,8 @@
 <?php
 
-namespace ForexHeatmap\Controllers;
+namespace FHM\Controllers;
 
-use ForexHeatmap\Services\ViewService;
+use FHM\Services\ViewService;
 
 class AdminController
 {

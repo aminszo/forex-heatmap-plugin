@@ -13,7 +13,7 @@ class ComposerStaticInit4ef0c998d1831014685d504eb3dff3ef
         ),
         'F' => 
         array (
-            'ForexHeatmap\\' => 13,
+            'FHM\\' => 4,
         ),
     );
 
@@ -22,7 +22,7 @@ class ComposerStaticInit4ef0c998d1831014685d504eb3dff3ef
         array (
             0 => __DIR__ . '/..' . '/eftec/bladeone/lib',
         ),
-        'ForexHeatmap\\' => 
+        'FHM\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

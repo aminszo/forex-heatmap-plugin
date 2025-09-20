@@ -3,9 +3,9 @@
 // Composer Autoloader
 require FHM_PLUGIN_DIR . '/vendor/autoload.php';
 
-use ForexHeatmap\Controllers\AdminController;
-use ForexHeatmap\Controllers\ShortcodeController;
-use ForexHeatmap\Controllers\HeatmapEndpointController;
+use FHM\Controllers\AdminController;
+use FHM\Controllers\ShortcodeController;
+use FHM\Controllers\HeatmapEndpointController;
 
 
 // Register Shortcode
@@ -35,7 +35,7 @@ register_activation_hook(FHM_PLUGIN_FILE, function () {
 });
 
 add_action('forex_heatmap_fetch_data', function () {
-    (new \ForexHeatmap\Services\HeatmapDataService())->fetchAndCache();
+    (new \FHM\Services\HeatmapDataService())->fetchAndCache();
 });
 
 register_deactivation_hook(FHM_PLUGIN_FILE, function () {

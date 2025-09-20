@@ -1,6 +1,6 @@
 <?php
 
-namespace ForexHeatmap\Services;
+namespace FHM\Services;
 
 class HeatmapDataService
 {
