@@ -1,0 +1,34 @@
+<?php
+
+namespace ForexHeatmap\Controllers;
+
+use ForexHeatmap\Services\ViewService;
+
+class AdminController
+{
+
+    public function __construct()
+    {
+        add_action('admin_menu', [$this, 'registerMenu']);
+    }
+
+    public function registerMenu()
+    {
+        add_options_page(
+            'Forex Heatmap Settings',
+            'Forex Heatmap',
+            'manage_options',
+            'fhm-settings',
+            [$this, 'renderPage']
+        );
+    }
+
+    public function renderPage()
+    {
+        $endpoint_url = rest_url('fhm/v1/data');
+
+        echo ViewService::render("admin.settings", [
+            'endpoint_url'    => $endpoint_url,
+        ]);
+    }
+}

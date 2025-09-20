@@ -3,6 +3,7 @@
 // Composer Autoloader
 require FHM_PLUGIN_DIR . '/vendor/autoload.php';
 
+use ForexHeatmap\Controllers\AdminController;
 use ForexHeatmap\Controllers\ShortcodeController;
 use ForexHeatmap\Controllers\HeatmapEndpointController;
 
@@ -16,6 +17,9 @@ add_action('init', function () {
 // Register Endpoint
 HeatmapEndpointController::register();
 
+if (is_admin()) {
+    new AdminController;
+}
 
 // Add every_minute time interval to wp-cron
 add_filter('cron_schedules', function ($schedules) {

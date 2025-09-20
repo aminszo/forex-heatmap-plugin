@@ -22,19 +22,19 @@ class ShortcodeController
             true
         );
 
+        wp_register_style(
+            'fh-heatmap-css',
+            FHM_PLUGIN_URL . 'resources/css/heatmap.css',
+            [],
+            FHM_VERSION
+        );
+
         wp_register_script(
             'data-tables',
             FHM_PLUGIN_URL . 'resources/js/dataTables.min.js',
             ['jquery'],
             FHM_VERSION,
             true
-        );
-
-        wp_register_style(
-            'fh-heatmap-css',
-            FHM_PLUGIN_URL . 'resources/css/heatmap.css',
-            [],
-            FHM_VERSION
         );
 
         wp_register_style(
