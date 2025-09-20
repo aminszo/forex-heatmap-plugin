@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Forex Heat Map 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/forex-heatmap\n"
 "POT-Creation-Date: 2025-09-20T06:52:13+00:00\n"
-"PO-Revision-Date: 2025-09-20 10:27+0330\n"
+"PO-Revision-Date: 2025-09-20 12:16+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #: index.php
 msgid "Forex Heat Map"
-msgstr ""
+msgstr "هیت مپ فارکس"
 
 #. Plugin URI of the plugin
 #: index.php
@@ -28,7 +28,7 @@ msgstr ""
 #. Description of the plugin
 #: index.php
 msgid "A plugin to display a Forex heat map using shortcode."
-msgstr ""
+msgstr "پلاگینی برای نمایش هیت مپ فارکس."
 
 #. Author of the plugin
 #: index.php
