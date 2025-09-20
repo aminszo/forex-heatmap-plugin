@@ -1,0 +1,44 @@
+# Copyright (C) 2025 IranRebate
+# This file is distributed under the GPL v2.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: Forex Heat Map 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/forex-heatmap\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-09-20T06:52:13+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: FHM\n"
+
+#. Plugin Name of the plugin
+#: index.php
+msgid "Forex Heat Map"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: index.php
+msgid "https://iranrebate/wp-plugins/forex-heat-map"
+msgstr ""
+
+#. Description of the plugin
+#: index.php
+msgid "A plugin to display a Forex heat map using shortcode."
+msgstr ""
+
+#. Author of the plugin
+#: index.php
+msgid "IranRebate"
+msgstr ""
+
+#. Author URI of the plugin
+#: index.php
+msgid "https://iranrebate.com"
+msgstr ""
+
+#: app/Controllers/AdminController.php:19
+msgid "Forex Heatmap"
+msgstr ""

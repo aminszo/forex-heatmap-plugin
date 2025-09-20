@@ -16,7 +16,7 @@ class AdminController
     {
         add_options_page(
             'Forex Heatmap Settings',
-            'Forex Heatmap',
+            __('Forex Heatmap', 'FHM'),
             'manage_options',
             'fhm-settings',
             [$this, 'renderPage']
