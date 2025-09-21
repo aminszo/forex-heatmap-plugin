@@ -45,9 +45,13 @@ class ShortcodeController
             FHM_VERSION
         );
 
+        $options = get_option('fhm_settings', []);
+        $defaults = Config::get_settings_defaults();
+
         wp_localize_script('fh-heatmap', 'FH_CONFIG', [
             'restUrl' => esc_url_raw(Config::get_endpoint_url()),
             'nonce'   => wp_create_nonce('wp_rest'),
+            'updateInterval' => $options['ui_update_interval'] ?? $defaults['ui_update_interval']
         ]);
     }
 

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Forex Heat Map 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/forex-heatmap\n"
-"POT-Creation-Date: 2025-09-20T06:52:13+00:00\n"
-"PO-Revision-Date: 2025-09-20 12:16+0330\n"
+"POT-Creation-Date: 2025-09-21T11:20:04+00:00\n"
+"PO-Revision-Date: 2025-09-21 14:53+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -40,6 +40,39 @@ msgstr "ایران ریبیت"
 msgid "https://iranrebate.com"
 msgstr ""
 
-#: app/Controllers/AdminController.php:19
+#: app/Controllers/AdminController.php:22
 msgid "Forex Heatmap"
 msgstr "هیت مپ فارکس"
+
+#: resources/views/admin/settings.blade.php:22
+#: resources/views/admin/settings.blade.php:23
+msgid "Save Settings"
+msgstr "ذخیره"
+
+#: resources/views/admin/settings.blade.php:2
+msgid "Forex Heatmap Settings"
+msgstr "تنظیمات هیت مپ فارکس"
+
+#: resources/views/admin/settings.blade.php:12
+msgid "Update interval (seconds)"
+msgstr "فاصله به‌روزرسانی (ثانیه)"
+
+#: resources/views/admin/settings.blade.php:17
+msgid "Cache lifetime (seconds)"
+msgstr "زمان نگهداری کش (ثانیه)"
+
+#: resources/views/admin/settings.blade.php:26
+msgid "API Endpoint Status"
+msgstr "وضعیت API Endpoint"
+
+#: resources/views/admin/settings.blade.php:28
+msgid "Address:"
+msgstr "آدرس:"
+
+#: resources/views/admin/settings.blade.php:32
+msgid "Status"
+msgstr "وضعیت"
+
+#: resources/views/admin/settings.blade.php:34
+msgid "Test now"
+msgstr "تست"

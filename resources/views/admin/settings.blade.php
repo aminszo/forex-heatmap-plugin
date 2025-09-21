@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <th><label for="cache_lifetime">{{ __('Cache lifetime (seconds)', 'FHM') }}</label></th>
-                <td><input type="number" name="cache_lifetime" id="cache_lifetime"
+                <td><input disabled type="number" name="cache_lifetime" id="cache_lifetime"
                         value="{{ $options['cache_lifetime'] }}"></td>
             </tr>
         </table>
@@ -28,7 +28,7 @@
 
     </p>
     <p>
-        {{ __('Status', 'FHM') }} <strong id="endpoint-status"> {{ $endpoint_status }}</strong>
+        {{ __('Status', 'FHM') }}: <strong id="endpoint-status"> {{ $endpoint_status }}</strong>
     </p>
     <button id="check-endpoint-btn" class="button button-primary button-large">{{ __('Test now', 'FHM') }}</button>
 

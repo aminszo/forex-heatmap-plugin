@@ -87,9 +87,12 @@
     let heatmapData = await fetchData();
     renderHeatmap(heatmapData);
 
-    // Auto-update every minute
+    // Auto-update
     setInterval(async () => {
         heatmapData = await fetchData();
         renderHeatmap(heatmapData);
-    }, 50000);
+    }, FH_CONFIG.updateInterval * 1000);
+    
+    // alert();
+    
 })();
