@@ -1,5 +1,5 @@
 <div class="wrap">
-    <h1>Forex Heatmap Settings</h1>
+    <h1>{{ __('Forex Heatmap Settings', 'FHM') }}</h1>
 
     <form method="post" action="{{ admin_url('admin-post.php') }}">
         {!! $nonce_field !!}
@@ -8,21 +8,74 @@
 
         <table class="form-table">
             <tr>
-                <th><label for="update_interval">Update interval (seconds)</label></th>
-                <td><input type="number" name="ui_update_interval" id="update_interval" value="{{ $options['ui_update_interval'] }}"></td>
+                <th><label for="update_interval">{{ __('Update interval (seconds)', 'FHM') }}</label></th>
+                <td><input type="number" name="ui_update_interval" id="update_interval"
+                        value="{{ $options['ui_update_interval'] }}"></td>
             </tr>
             <tr>
-                <th><label for="cache_lifetime">Cache lifetime (seconds)</label></th>
-                <td><input type="number" name="cache_lifetime" id="cache_lifetime" value="{{ $options['cache_lifetime'] }}"></td>
+                <th><label for="cache_lifetime">{{ __('Cache lifetime (seconds)', 'FHM') }}</label></th>
+                <td><input type="number" name="cache_lifetime" id="cache_lifetime"
+                        value="{{ $options['cache_lifetime'] }}"></td>
             </tr>
         </table>
 
-        <?php submit_button('Save Settings'); ?>
+        <?php submit_button(__('Save Settings', 'FHM')); ?>
     </form>
-    <h2>API Endpoint Status</h2>
+
+    <h2>{{ __('API Endpoint Status', 'FHM') }}</h2>
     <p>
-        Endpoint: <code>{{ $endpoint_url }}</code><br>
-        Status: <strong> {{$endpoint_status}}</strong>
+        {{ __('Address:', 'FHM') }} <code>{{ $endpoint_url }}</code><br>
+
     </p>
+    <p>
+        {{ __('Status', 'FHM') }} <strong id="endpoint-status"> {{ $endpoint_status }}</strong>
+    </p>
+    <button id="check-endpoint-btn" class="button button-primary button-large">{{ __('Test now', 'FHM') }}</button>
 
 </div>
+
+<style>
+    #endpoint-status {
+        padding: 3px 10px;
+    }
+
+    .success {
+        color: green;
+        background-color: rgba(0, 203, 0, 0.3);
+    }
+
+    .fail {
+        color: #b20000;
+        background-color: #ffb6b6;
+    }
+</style>
+
+<script>
+    jQuery(document).ready(function($) {
+        const epStatus = $("#endpoint-status")
+        $("#check-endpoint-btn").on("click", function() {
+            $.ajax({
+                url: "{{ admin_url('admin-post.php') }}",
+                method: "POST",
+                data: {
+                    action: "fhm_test_endpoint"
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.success) {
+                        epStatus.text("OK");
+                        epStatus.attr("class", "success");
+
+                    } else {
+                        epStatus.text("Fail");
+                        epStatus.attr("class", "fail");
+                    }
+                },
+                error: function() {
+                    epStatus.text("Fail");
+                    epStatus.attr("class", "fail");
+                }
+            });
+        });
+    });
+</script>

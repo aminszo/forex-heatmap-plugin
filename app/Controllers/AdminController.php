@@ -12,6 +12,7 @@ class AdminController
     {
         add_action('admin_menu', [$this, 'registerMenu']);
         add_action('admin_post_fhm_save_settings', [$this, 'saveSettings']);
+        add_action('admin_post_fhm_test_endpoint', [$this, 'testEndpoint']);
     }
 
     public function registerMenu()
@@ -47,8 +48,6 @@ class AdminController
     {
         // echo "ok";
         $endpoint_url = Config::get_endpoint_url();
-        // $response = wp_remote_get($endpoint_url);
-        // $endpoint_status = (is_wp_error($response)) ? 'Down' : 'OK';
 
         $nonce_field = wp_nonce_field('fhm_settings_save_action', 'fhm_settings_nonce', true, false);
 
@@ -57,7 +56,6 @@ class AdminController
         echo ViewService::render("admin.settings", [
             'options'           => $options,
             'endpoint_url'      => $endpoint_url,
-            'endpoint_status'   => 'unknown', //$endpoint_status,
             'nonce_field'       => $nonce_field,
         ]);
     }
@@ -80,5 +78,18 @@ class AdminController
 
         wp_redirect(admin_url('admin.php?page=fhm-settings&saved=1'));
         exit;
+    }
+
+    public function testEndpoint()
+    {
+        $endpoint_url = Config::get_endpoint_url();
+        $response = wp_remote_get($endpoint_url);
+        $success = is_wp_error($response) ? false : true;
+
+        if (strlen($response['body']) > 500) {
+            wp_send_json_success($response['body']);
+        }
+
+        wp_send_json_error();
     }
 }
