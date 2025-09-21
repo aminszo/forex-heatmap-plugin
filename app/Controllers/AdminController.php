@@ -26,22 +26,6 @@ class AdminController
             'dashicons-editor-table',
             30
         );
-
-        add_submenu_page(
-            'fhm-settings',
-            'subsettings',
-            'subsettings',
-            'manage_options',
-            'fhm-submenu-settings',
-            [$this, 'renderSubmenuPage'],
-        );
-    }
-
-    public function renderSubmenuPage()
-    {
-        echo ViewService::render("admin.settings", [
-            'title' => "Title",
-        ]);
     }
 
     public function renderPage()
