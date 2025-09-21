@@ -68,6 +68,10 @@
                 data: {
                     action: "fhm_test_endpoint"
                 },
+                beforeSend: function() {
+                    epStatus.text("...");
+                    epStatus.attr("class", "");
+                },
                 success: function(response) {
                     console.log(response);
                     if (response.success) {
