@@ -71,7 +71,8 @@ class AdminController
         $defaults = Config::get_settings_defaults();
 
         $options = [
-            'ui_update_interval' => intval($_POST['ui_update_interval'] ?? $defaults['ui_update_interval'])
+            'ui_update_interval'    => intval($_POST['ui_update_interval'] ?? $defaults['ui_update_interval']),
+            'external_api_url'      => esc_url($_POST['external_api_url']),
         ];
 
         update_option('fhm_settings', $options);

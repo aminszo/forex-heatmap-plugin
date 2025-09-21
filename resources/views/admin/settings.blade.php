@@ -9,7 +9,7 @@
         <table class="form-table">
             <tr>
                 <th><label for="update_interval">{{ __('Update interval (seconds)', 'FHM') }}</label></th>
-                <td><input type="number" name="ui_update_interval" id="update_interval"
+                <td><input type="number" min="5" max="120" name="ui_update_interval" id="update_interval"
                         value="{{ $options['ui_update_interval'] }}"></td>
             </tr>
             <tr>
@@ -17,20 +17,28 @@
                 <td><input disabled type="number" name="cache_lifetime" id="cache_lifetime"
                         value="{{ $options['cache_lifetime'] }}"></td>
             </tr>
+
+            <tr>
+                <th><label for="external_api_url">{{ __('Api URL', 'FHM') }}</label></th>
+                <td><input type="url" name="external_api_url" id="external_api_url"
+                        value="{{ $options['external_api_url'] }}"></td>
+            </tr>
+
         </table>
 
         <?php submit_button(__('Save Settings', 'FHM')); ?>
     </form>
 
-    <h2>{{ __('API Endpoint Status', 'FHM') }}</h2>
+    <h2>{{ __('Internal Endpoint Status', 'FHM') }}</h2>
     <p>
         {{ __('Address:', 'FHM') }} <code>{{ $endpoint_url }}</code><br>
-
     </p>
     <p>
         {{ __('Status', 'FHM') }}: <strong id="endpoint-status"> {{ $endpoint_status }}</strong>
     </p>
     <button id="check-endpoint-btn" class="button button-primary button-large">{{ __('Test now', 'FHM') }}</button>
+
+
 
 </div>
 
