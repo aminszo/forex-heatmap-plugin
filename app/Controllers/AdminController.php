@@ -11,6 +11,7 @@ class AdminController
     public function __construct()
     {
         add_action('admin_menu', [$this, 'registerMenu']);
+        add_action('admin_post_fhm_save_settings', [$this, 'saveSettings']);
     }
 
     public function registerMenu()
@@ -44,13 +45,40 @@ class AdminController
 
     public function renderPage()
     {
+        // echo "ok";
         $endpoint_url = Config::get_endpoint_url();
-        $response = wp_remote_get($endpoint_url);
-        $endpoint_status = (is_wp_error($response)) ? 'Down' : 'OK';
+        // $response = wp_remote_get($endpoint_url);
+        // $endpoint_status = (is_wp_error($response)) ? 'Down' : 'OK';
+
+        $nonce_field = wp_nonce_field('fhm_settings_save_action', 'fhm_settings_nonce', true, false);
+
+        $options = get_option('fhm_settings', []);
 
         echo ViewService::render("admin.settings", [
-            'endpoint_url'    => $endpoint_url,
-            'endpoint_status' => $endpoint_status,
+            'options'           => $options,
+            'endpoint_url'      => $endpoint_url,
+            'endpoint_status'   => 'unknown', //$endpoint_status,
+            'nonce_field'       => $nonce_field,
         ]);
+    }
+
+    public function saveSettings()
+    {
+        if (! current_user_can('manage_options')) {
+            wp_die('Unauthorized');
+        }
+
+        check_admin_referer('fhm_settings_save_action', 'fhm_settings_nonce');
+
+        $defaults = Config::get_settings_defaults();
+
+        $options = [
+            'ui_update_interval' => intval($_POST['ui_update_interval'] ?? $defaults['ui_update_interval'])
+        ];
+
+        update_option('fhm_settings', $options);
+
+        wp_redirect(admin_url('admin.php?page=fhm-settings&saved=1'));
+        exit;
     }
 }

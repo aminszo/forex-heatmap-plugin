@@ -2,9 +2,10 @@
 
 namespace FHM\Services;
 
+use FHM\Configs\Config;
+
 class HeatmapDataService
 {
-    protected $apiUrl = "https://www.myfxbook.com/getHeatMapData.json";
 
     private function fetchFromApi(array $symbols = [])
     {
@@ -14,7 +15,7 @@ class HeatmapDataService
 
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => $this->apiUrl,
+            CURLOPT_URL => Config::$apiUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => http_build_query($payload),
@@ -43,7 +44,7 @@ class HeatmapDataService
     {
         $data = $this->fetchFromApi();
         if (!is_null($data)) {
-            set_transient('fhm_latest_heatmap', $data, 60);
+            set_transient(Config::$transient_name, $data, 60);
             return true;
         }
 
@@ -52,9 +53,9 @@ class HeatmapDataService
 
     public function getLatest()
     {
-        $cached = get_transient('fhm_latest_heatmap');
+        $cached = get_transient(Config::$transient_name);
         if ($cached) return $cached;
         $this->fetchAndCache();
-        return get_transient('fhm_latest_heatmap');
+        return get_transient(Config::$transient_name);
     }
 }

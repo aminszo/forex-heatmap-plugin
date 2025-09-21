@@ -2,6 +2,7 @@
 
 namespace FHM\Controllers;
 
+use FHM\Configs\Config;
 use FHM\Services\ViewService as View;
 
 class ShortcodeController
@@ -45,7 +46,7 @@ class ShortcodeController
         );
 
         wp_localize_script('fh-heatmap', 'FH_CONFIG', [
-            'restUrl' => esc_url_raw(rest_url('fhm/v1/data')),
+            'restUrl' => esc_url_raw(Config::get_endpoint_url()),
             'nonce'   => wp_create_nonce('wp_rest'),
         ]);
     }

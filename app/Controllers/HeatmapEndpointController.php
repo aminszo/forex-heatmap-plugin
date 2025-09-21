@@ -2,6 +2,7 @@
 
 namespace FHM\Controllers;
 
+use FHM\Configs\Config;
 use FHM\Services\HeatmapDataService;
 
 class HeatmapEndpointController
@@ -9,7 +10,10 @@ class HeatmapEndpointController
     public static function register()
     {
         add_action('rest_api_init', function () {
-            register_rest_route('fhm/v1', '/data', [
+            $route_namespace = Config::$endpoint_route_namespace;
+            $route = Config::$endpoint_route;
+
+            register_rest_route($route_namespace, $route, [
                 'methods' => 'GET',
                 'callback' => [self::class, 'getData'],
                 'permission_callback' => '__return_true',
