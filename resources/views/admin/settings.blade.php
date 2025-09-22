@@ -1,6 +1,7 @@
 <div class="wrap">
-    <h1>{{ __('Forex Heatmap Settings', 'FHM') }}</h1>
+    <h1>{{ __('Forex Heatmap', 'FHM') }}</h1>
 
+    <h2>{{ __('Settings', 'FHM') }}</h2>
     <form method="post" action="{{ admin_url('admin-post.php') }}">
         {!! $nonce_field !!}
 
@@ -13,121 +14,27 @@
                         value="{{ $options['ui_update_interval'] }}"></td>
             </tr>
             <tr>
-                <th><label for="cache_lifetime">{{ __('Cache lifetime (seconds)', 'FHM') }}</label></th>
-                <td><input disabled type="number" name="cache_lifetime" id="cache_lifetime"
-                        value="{{ $options['cache_lifetime'] }}"></td>
-            </tr>
-
-            <tr>
                 <th><label for="external_api_url">{{ __('Api URL', 'FHM') }}</label></th>
                 <td><input type="url" name="external_api_url" id="external_api_url"
                         value="{{ $options['external_api_url'] }}"></td>
             </tr>
-
         </table>
 
         <?php submit_button(__('Save Settings', 'FHM')); ?>
     </form>
+    <hr>
 
     <h2>{{ __('Internal Endpoint Status', 'FHM') }}</h2>
-    <p>
-        {{ __('Address:', 'FHM') }} <code>{{ $endpoint_url }}</code><br>
-    </p>
-    <p>
-        {{ __('Status', 'FHM') }}: <strong id="endpoint-status"> {{ $endpoint_status }}</strong>
-    </p>
+    <p>{{ __('Address:', 'FHM') }} <code>{{ $endpoint_url }}</code><br></p>
+    <p>{{ __('Status', 'FHM') }}: <strong id="endpoint-status" class="status"> {{ $endpoint_status }}</strong></p>
     <button id="check-endpoint-btn" class="button button-primary button-large">{{ __('Test now', 'FHM') }}</button>
-
+    <hr>
 
     <h2>{{ __('External API Status', 'FHM') }}</h2>
-    <p>
-        {{ __('Address:', 'FHM') }} <code>{{ $external_api_url }}</code><br>
-    </p>
-    <p>
-        {{ __('Status', 'FHM') }}: <strong id="api-status"> {{ $endpoint_status }}</strong>
-    </p>
+    <p>{{ __('Address:', 'FHM') }} <code>{{ $external_api_url }}</code><br></p>
+    <p>{{ __('Status', 'FHM') }}: <strong id="api-status" class="status"> {{ $endpoint_status }}</strong></p>
+    <div>
+        <pre id="api-status-response"></pre>
+    </div>
     <button id="check-api-btn" class="button button-primary button-large">{{ __('Test now', 'FHM') }}</button>
-
-
 </div>
-
-<style>
-    #endpoint-status {
-        padding: 3px 10px;
-    }
-
-    .success {
-        color: green;
-        background-color: rgba(0, 203, 0, 0.3);
-    }
-
-    .fail {
-        color: #b20000;
-        background-color: #ffb6b6;
-    }
-</style>
-
-<script>
-    jQuery(document).ready(function($) {
-        const epStatus = $("#endpoint-status")
-        $("#check-endpoint-btn").on("click", function() {
-            $.ajax({
-                url: "{{ admin_url('admin-post.php') }}",
-                method: "POST",
-                data: {
-                    action: "fhm_test_endpoint"
-                },
-                beforeSend: function() {
-                    epStatus.text("...");
-                    epStatus.attr("class", "");
-                },
-                success: function(response) {
-                    console.log(response);
-                    if (response.success) {
-                        epStatus.text("OK");
-                        epStatus.attr("class", "success");
-
-                    } else {
-                        epStatus.text("Fail");
-                        epStatus.attr("class", "fail");
-                    }
-                },
-                error: function() {
-                    epStatus.text("Fail");
-                    epStatus.attr("class", "fail");
-                }
-            });
-        });
-
-        const apiStatus = $("#api-status")
-
-        $("#check-api-btn").on("click", function() {
-            $.ajax({
-                url: "{{ admin_url('admin-post.php') }}",
-                method: "POST",
-                data: {
-                    action: "fhm_test_api"
-                },
-                beforeSend: function() {
-                    apiStatus.text("...");
-                    apiStatus.attr("class", "");
-                },
-                success: function(response) {
-                    console.log(response);
-                    if (response.success) {
-                        apiStatus.text("OK");
-                        apiStatus.attr("class", "success");
-
-                    } else {
-                        apiStatus.text("Fail");
-                        apiStatus.attr("class", "fail");
-                    }
-                },
-                error: function() {
-                    apiStatus.text("Fail");
-                    apiStatus.attr("class", "fail");
-                }
-            });
-        });
-    });
-</script>

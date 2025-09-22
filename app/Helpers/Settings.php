@@ -25,13 +25,17 @@ class Settings
         $this->options = get_option($this->options_key, []);
     }
 
+    public function get_options() {
+        return $this->options;
+    }
+
     public function get_api_url()
     {
         return $this->options['external_api_url'] ?? Config::$default_api_url;
     }
 
     public function ui_update_interval() {
-        return $options['ui_update_interval'] ?? Config::get_settings_defaults()['ui_update_interval'];
+        return $this->options['ui_update_interval'] ?? Config::get_settings_defaults()['ui_update_interval'];
     }
 
 }

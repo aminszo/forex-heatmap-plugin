@@ -15,7 +15,7 @@ class Config
     // Heatmap Data DB Transient Name
     public static $transient_name = 'fhm_latest_heatmap';
 
-    
+
     public static function get_endpoint_route()
     {
         return self::$endpoint_route_namespace . '/' . self::$endpoint_route;
@@ -29,9 +29,8 @@ class Config
     public static function get_settings_defaults()
     {
         return [
-            'symbols' => '',    // empty = use default full list
             'ui_update_interval' => 60,  // seconds
-            'cache_lifetime' => 60,   // seconds
+            'heatmap_data_cache_lifetime' => 60,   // seconds
         ];
     }
 }

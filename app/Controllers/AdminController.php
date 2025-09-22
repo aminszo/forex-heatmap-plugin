@@ -13,6 +13,7 @@ class AdminController
     public function __construct()
     {
         add_action('admin_menu', [$this, 'registerMenu']);
+        add_action('admin_enqueue_scripts', [$this, 'registerAssets']);
         add_action('admin_post_fhm_save_settings', [$this, 'saveSettings']);
         add_action('admin_post_fhm_test_endpoint', [$this, 'testEndpoint']);
         add_action('admin_post_fhm_test_api', [$this, 'testApi']);
@@ -31,21 +32,43 @@ class AdminController
         );
     }
 
+    public function registerAssets()
+    {
+        wp_register_script(
+            'fh-admin-js',
+            FHM_PLUGIN_URL . 'resources/js/admin.js',
+            ['jquery'],
+            FHM_VERSION,
+            true
+        );
+
+        wp_register_style(
+            'fh-admin-css',
+            FHM_PLUGIN_URL . 'resources/css/admin.css',
+            [],
+            FHM_VERSION
+        );
+    }
+
     public function renderPage()
     {
-
         $settings = Settings::instance();
-        
-        var_dump($settings->options);
 
         $endpoint_url = Config::get_endpoint_url();
 
-        $options = get_option('fhm_settings', []);
-        $external_api_url = esc_url($options['external_api_url'] ?? Config::$default_api_url);
+        $options = $settings->get_options();
+
+        $external_api_url = $settings->get_api_url();
 
         $nonce_field = wp_nonce_field('fhm_settings_save_action', 'fhm_settings_nonce', true, false);
 
-        $options = get_option('fhm_settings', []);
+        // Enqueue scripts and styles
+        wp_enqueue_script('fh-admin-js');
+        wp_enqueue_style('fh-admin-css');
+
+        wp_localize_script('fh-admin-js', 'fhData', [
+            'adminUrl' => admin_url('admin-post.php'),
+        ]);
 
         echo ViewService::render("admin.settings", [
             'options'           => $options,

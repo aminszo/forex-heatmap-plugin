@@ -1,0 +1,27 @@
+#api-status-response {
+    display: none;
+    width: 80%;
+    margin: 10px auto;
+    max-height: 200px;
+    overflow-y: scroll;
+    background-color: #e8e8e8;
+    color: #303030;
+    direction: ltr;
+    padding: 10px;
+}
+
+#endpoint-status,
+#api-status {
+    padding: 3px 10px;
+}
+
+.success {
+    color: green;
+    background-color: rgba(0, 203, 0, 0.3);
+    border: 1px solid green;
+}
+
+.fail {
+    color: #b20000;
+    background-color: #ffb6b6;
+}

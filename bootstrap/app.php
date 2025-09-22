@@ -11,15 +11,17 @@ use FHM\Controllers\HeatmapEndpointController;
 // Register Shortcode
 add_action('init', function () {
     ShortcodeController::register();
+
+    if (is_admin()) {
+        new AdminController;
+    }
 });
 
 // Register Internal Endpoint
 HeatmapEndpointController::register();
 
 // Register Admin Menu
-if (is_admin()) {
-    new AdminController;
-}
+
 
 // Add every_minute time interval to wp-cron
 add_filter('cron_schedules', function ($schedules) {
