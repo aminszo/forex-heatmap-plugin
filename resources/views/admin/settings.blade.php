@@ -28,6 +28,9 @@
     <p>{{ __('Address:', 'FHM') }} <code>{{ $endpoint_url }}</code><br></p>
     <p>{{ __('Status', 'FHM') }}: <strong id="endpoint-status" class="status"> {{ $endpoint_status }}</strong></p>
     <button id="check-endpoint-btn" class="button button-primary button-large">{{ __('Test now', 'FHM') }}</button>
+    <div>
+        <pre id="endpoint-status-response"></pre>
+    </div>
     <hr>
 
     <h2>{{ __('External API Status', 'FHM') }}</h2>

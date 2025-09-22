@@ -1,4 +1,5 @@
-#api-status-response {
+#api-status-response,
+#endpoint-status-response {
     display: none;
     width: 80%;
     margin: 10px auto;
