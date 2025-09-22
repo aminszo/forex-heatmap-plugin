@@ -80,7 +80,9 @@
         table.appendChild(tbody);
         container.appendChild(table);
 
-        let fhtable = new DataTable('#fhm-table');
+        let fhtable = new DataTable('#fhm-table', {
+            stateSave: true
+        });
     }
 
     // Initial load
