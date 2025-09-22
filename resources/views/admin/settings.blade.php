@@ -39,6 +39,15 @@
     <button id="check-endpoint-btn" class="button button-primary button-large">{{ __('Test now', 'FHM') }}</button>
 
 
+    <h2>{{ __('External API Status', 'FHM') }}</h2>
+    <p>
+        {{ __('Address:', 'FHM') }} <code>{{ $external_api_url }}</code><br>
+    </p>
+    <p>
+        {{ __('Status', 'FHM') }}: <strong id="api-status"> {{ $endpoint_status }}</strong>
+    </p>
+    <button id="check-api-btn" class="button button-primary button-large">{{ __('Test now', 'FHM') }}</button>
+
 
 </div>
 
@@ -86,6 +95,37 @@
                 error: function() {
                     epStatus.text("Fail");
                     epStatus.attr("class", "fail");
+                }
+            });
+        });
+
+        const apiStatus = $("#api-status")
+
+        $("#check-api-btn").on("click", function() {
+            $.ajax({
+                url: "{{ admin_url('admin-post.php') }}",
+                method: "POST",
+                data: {
+                    action: "fhm_test_api"
+                },
+                beforeSend: function() {
+                    apiStatus.text("...");
+                    apiStatus.attr("class", "");
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.success) {
+                        apiStatus.text("OK");
+                        apiStatus.attr("class", "success");
+
+                    } else {
+                        apiStatus.text("Fail");
+                        apiStatus.attr("class", "fail");
+                    }
+                },
+                error: function() {
+                    apiStatus.text("Fail");
+                    apiStatus.attr("class", "fail");
                 }
             });
         });

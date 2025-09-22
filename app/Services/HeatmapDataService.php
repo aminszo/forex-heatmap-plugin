@@ -7,7 +7,7 @@ use FHM\Configs\Config;
 class HeatmapDataService
 {
 
-    private function fetchFromApi(array $symbols = [])
+    public function fetchFromApi(array $symbols = [])
     {
 
         $options = get_option('fhm_settings', []);
@@ -29,29 +29,70 @@ class HeatmapDataService
         ]);
 
         $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curl_errorno = curl_errno($ch);
+        $curl_error = curl_error($ch);
+
         curl_close($ch);
 
+        return $this->validateResponse($curl_errorno, $curl_error, $response, $httpCode);
+    }
+
+    private function validateResponse($curl_errorno, $curl_error, $response, $httpCode)
+    {
+
+        if ($curl_errorno) {
+            return [false, "cURL error: $curl_error"];
+        }
+        if ($httpCode !== 200) {
+            return [false, "HTTP error: $httpCode \nResponse: $response"];
+        }
+
         if (!$response) {
-            return false;
+            return [false, 'Empty response'];
         }
 
-        $data = json_decode($response, true);
-
+        $decoded = json_decode($response, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            return false;
+            return [false, 'Invalid JSON: ' . json_last_error_msg()];
         }
 
-        return $data['data'] ?? null;
+        if (!isset($decoded['data']) || !is_array($decoded['data'])) {
+            return [false, 'Missing or invalid "data" key'];
+        }
+
+        // Check structure of one symbol with open/close
+        foreach ($decoded['data'] as $symbol => $timeframes) {
+            if (!is_array($timeframes)) {
+                return [false, "Invalid structure for $symbol"];
+            }
+
+            foreach ($timeframes as $tf => $values) {
+                if (!isset($values['open'], $values['close'])) {
+                    return [false, "Missing open/close for $symbol timeframe $tf"];
+                }
+                if (!is_numeric($values['open']) || !is_numeric($values['close'])) {
+                    return [false, "Non-numeric values for $symbol timeframe $tf"];
+                }
+            }
+
+            // Check only the first symbol for schema validation
+            break;
+        }
+
+        return [true, $decoded['data']];
     }
 
     public function fetchAndCache()
     {
-        $data = $this->fetchFromApi();
-        if (!is_null($data)) {
-            set_transient(Config::$transient_name, $data, 60);
+        [$success, $result] = $this->fetchFromApi();
+
+        if (true === $success) {
+            set_transient(Config::$transient_name, $result, 60);
             return true;
         }
 
+        error_log("Heatmap fetch failed: " . $result);
         return false;
     }
 

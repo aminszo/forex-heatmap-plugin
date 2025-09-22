@@ -3,6 +3,7 @@
 namespace FHM\Controllers;
 
 use FHM\Configs\Config;
+use FHM\Services\HeatmapDataService;
 use FHM\Services\ViewService;
 
 class AdminController
@@ -13,6 +14,7 @@ class AdminController
         add_action('admin_menu', [$this, 'registerMenu']);
         add_action('admin_post_fhm_save_settings', [$this, 'saveSettings']);
         add_action('admin_post_fhm_test_endpoint', [$this, 'testEndpoint']);
+        add_action('admin_post_fhm_test_api', [$this, 'testApi']);
     }
 
     public function registerMenu()
@@ -33,6 +35,9 @@ class AdminController
         // echo "ok";
         $endpoint_url = Config::get_endpoint_url();
 
+        $options = get_option('fhm_settings', []);
+        $external_api_url = esc_url($options['external_api_url'] ?? Config::$apiUrl);
+
         $nonce_field = wp_nonce_field('fhm_settings_save_action', 'fhm_settings_nonce', true, false);
 
         $options = get_option('fhm_settings', []);
@@ -40,6 +45,7 @@ class AdminController
         echo ViewService::render("admin.settings", [
             'options'           => $options,
             'endpoint_url'      => $endpoint_url,
+            'external_api_url'  => $external_api_url,
             'nonce_field'       => $nonce_field,
         ]);
     }
@@ -76,5 +82,19 @@ class AdminController
         }
 
         wp_send_json_error();
+    }
+
+    public function testApi()
+    {
+        $options = get_option('fhm_settings', []);
+
+        $dataService = new HeatmapDataService;
+        [$success, $data] = $dataService->fetchFromApi();
+
+        if (true === $success) {
+            wp_send_json_success($data);
+        } else {
+            wp_send_json_error($data);
+        }
     }
 }
