@@ -13,10 +13,10 @@ add_action('init', function () {
     ShortcodeController::register();
 });
 
-
-// Register Endpoint
+// Register Internal Endpoint
 HeatmapEndpointController::register();
 
+// Register Admin Menu
 if (is_admin()) {
     new AdminController;
 }
@@ -27,7 +27,8 @@ add_filter('cron_schedules', function ($schedules) {
     return $schedules;
 });
 
-register_activation_hook(FHM_PLUGIN_FILE, function () {
+// Register schedule hook
+register_activation_hook(FHM_PLUGIN_FILEPATH, function () {
     if (! wp_next_scheduled('forex_heatmap_fetch_data')) {
         wp_schedule_event(time(), 'every_minute', 'forex_heatmap_fetch_data');
     }
@@ -38,6 +39,7 @@ add_action('forex_heatmap_fetch_data', function () {
     (new \FHM\Services\HeatmapDataService())->fetchAndCache();
 });
 
-register_deactivation_hook(FHM_PLUGIN_FILE, function () {
+// Deregister schedule hook
+register_deactivation_hook(FHM_PLUGIN_FILEPATH, function () {
     wp_clear_scheduled_hook('forex_heatmap_fetch_data');
 });

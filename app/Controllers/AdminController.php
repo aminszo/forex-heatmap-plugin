@@ -32,7 +32,6 @@ class AdminController
 
     public function renderPage()
     {
-        // echo "ok";
         $endpoint_url = Config::get_endpoint_url();
 
         $options = get_option('fhm_settings', []);

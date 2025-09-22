@@ -9,7 +9,6 @@ class HeatmapDataService
 
     public function fetchFromApi(array $symbols = [])
     {
-
         $options = get_option('fhm_settings', []);
         $url = $options['external_api_url'] ?? Config::$apiUrl;
 

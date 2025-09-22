@@ -9,7 +9,8 @@
 #fhm-heatmap table {
     border-collapse: collapse;
     width: 100%;
-    min-width: 600px; /* ensures it doesn’t shrink too small */
+    min-width: 600px;
+    /* ensures it doesn’t shrink too small */
     table-layout: fixed;
 }
 
@@ -42,7 +43,7 @@
 }
 
 .heatmap-negative {
-    color: red !important; 
+    color: red !important;
     /* background: linear-gradient(to right, #ef9a9a, #ff6d63); */
 }
 
@@ -53,19 +54,57 @@
 
 /* Hover row highlight */
 #fhm-heatmap tbody tr {
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 
 /* Hover row highlight */
 #fhm-heatmap tbody tr:hover {
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive adjustments */
 @media screen and (max-width: 768px) {
-    #fhm-heatmap th, #fhm-heatmap td {
+
+    #fhm-heatmap th,
+    #fhm-heatmap td {
         font-size: 12px;
         padding: 6px;
+    }
+}
+
+/* Fullscreen overlay */
+#fhm-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Spinner */
+#fhm-loading::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    border: 3px solid #999;
+    border-top-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    animation: spin 0.8s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
