@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Forex Heat Map 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/forex-heatmap\n"
-"POT-Creation-Date: 2025-09-21T13:41:15+00:00\n"
-"PO-Revision-Date: 2025-09-21 17:11+0330\n"
+"POT-Creation-Date: 2025-09-22T11:13:16+00:00\n"
+"PO-Revision-Date: 2025-09-22 14:44+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -40,43 +40,53 @@ msgstr "ایران ریبیت"
 msgid "https://iranrebate.com"
 msgstr ""
 
-#: app/Controllers/AdminController.php:22
+#: app/Controllers/AdminController.php:26
+#: resources/views/admin/settings.blade.php:2
 msgid "Forex Heatmap"
 msgstr "هیت مپ فارکس"
 
-#: resources/views/admin/settings.blade.php:29
-#: resources/views/admin/settings.blade.php:30
+#: resources/views/admin/settings.blade.php:23
+#: resources/views/admin/settings.blade.php:24
 msgid "Save Settings"
 msgstr "ذخیره"
 
-#: resources/views/admin/settings.blade.php:2
-msgid "Forex Heatmap Settings"
-msgstr "تنظیمات هیت مپ فارکس"
+#: resources/views/admin/settings.blade.php:4
+msgid "Settings"
+msgstr "تنظیمات"
 
-#: resources/views/admin/settings.blade.php:12
+#: resources/views/admin/settings.blade.php:13
 msgid "Update interval (seconds)"
 msgstr "فاصله به‌روزرسانی هیت مپ در صفحه (ثانیه)"
 
-#: resources/views/admin/settings.blade.php:17
-msgid "Cache lifetime (seconds)"
-msgstr "زمان نگهداری کش (ثانیه)"
-
-#: resources/views/admin/settings.blade.php:23
+#: resources/views/admin/settings.blade.php:18
 msgid "Api URL"
-msgstr ""
+msgstr "آدرس API"
 
-#: resources/views/admin/settings.blade.php:33
+#: resources/views/admin/settings.blade.php:28
 msgid "Internal Endpoint Status"
 msgstr "وضعیت Endpoint داخلی"
 
+#: resources/views/admin/settings.blade.php:29
 #: resources/views/admin/settings.blade.php:35
 msgid "Address:"
 msgstr "آدرس:"
 
-#: resources/views/admin/settings.blade.php:38
+#: resources/views/admin/settings.blade.php:30
+#: resources/views/admin/settings.blade.php:36
 msgid "Status"
 msgstr "وضعیت"
 
+#: resources/views/admin/settings.blade.php:31
 #: resources/views/admin/settings.blade.php:40
 msgid "Test now"
 msgstr "تست"
+
+#: resources/views/admin/settings.blade.php:34
+msgid "External API Status"
+msgstr "وضعیت API"
+
+#~ msgid "Forex Heatmap Settings"
+#~ msgstr "تنظیمات هیت مپ فارکس"
+
+#~ msgid "Cache lifetime (seconds)"
+#~ msgstr "زمان نگهداری کش (ثانیه)"
