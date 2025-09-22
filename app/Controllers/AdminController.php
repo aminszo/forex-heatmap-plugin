@@ -3,6 +3,7 @@
 namespace FHM\Controllers;
 
 use FHM\Configs\Config;
+use FHM\Helpers\Settings;
 use FHM\Services\HeatmapDataService;
 use FHM\Services\ViewService;
 
@@ -32,10 +33,15 @@ class AdminController
 
     public function renderPage()
     {
+
+        $settings = Settings::instance();
+        
+        var_dump($settings->options);
+
         $endpoint_url = Config::get_endpoint_url();
 
         $options = get_option('fhm_settings', []);
-        $external_api_url = esc_url($options['external_api_url'] ?? Config::$apiUrl);
+        $external_api_url = esc_url($options['external_api_url'] ?? Config::$default_api_url);
 
         $nonce_field = wp_nonce_field('fhm_settings_save_action', 'fhm_settings_nonce', true, false);
 
@@ -85,8 +91,6 @@ class AdminController
 
     public function testApi()
     {
-        $options = get_option('fhm_settings', []);
-
         $dataService = new HeatmapDataService;
         [$success, $data] = $dataService->fetchFromApi();
 

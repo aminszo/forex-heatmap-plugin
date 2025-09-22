@@ -10,7 +10,7 @@ class Config
     public static $endpoint_route = 'data';
 
     // External API
-    public static $apiUrl = "https://www.myfxbook.com/getHeatMapData.json";
+    public static $default_api_url = "https://www.myfxbook.com/getHeatMapData.json";
 
     // Heatmap Data DB Transient Name
     public static $transient_name = 'fhm_latest_heatmap';
@@ -29,9 +29,9 @@ class Config
     public static function get_settings_defaults()
     {
         return [
-            'symbols'           => '',    // empty = use default full list
-            'ui_update_interval'   => 60,  // seconds
-            'cache_lifetime'    => 60,   // seconds
+            'symbols' => '',    // empty = use default full list
+            'ui_update_interval' => 60,  // seconds
+            'cache_lifetime' => 60,   // seconds
         ];
     }
 }

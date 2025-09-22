@@ -3,15 +3,16 @@
 namespace FHM\Services;
 
 use FHM\Configs\Config;
+use FHM\Helpers\Settings;
 
 class HeatmapDataService
 {
 
     public function fetchFromApi(array $symbols = [])
     {
-        $options = get_option('fhm_settings', []);
-        $url = $options['external_api_url'] ?? Config::$apiUrl;
+        $settings = Settings::instance();
 
+        $url = $settings->get_api_url();
         $allSymbols = "9,8,47,10,1234,11,103,12,46,1245,6,13,14,15,17,18,7,2114,19,20,21,22,1246,23,1,1233,107,24,25,4,2872,137,48,1236,1247,2012,2,1863,3240,26,49,27,28,2090,131,5,29,5779,31,34,3,36,37,38,2076,40,41,42,43,45,3005,3473,50,2115,2119,1815,2521,51,5435,5079,1893";
         $symbolsStr = $symbols ? implode(',', $symbols) : $allSymbols; // default
         $payload = ['symbols' => $symbolsStr];
@@ -23,7 +24,7 @@ class HeatmapDataService
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => http_build_query($payload),
             CURLOPT_HTTPHEADER => ["Content-Type: application/x-www-form-urlencoded"],
-            CURLOPT_CONNECTTIMEOUT => 10, // wait max 10s to connect
+            CURLOPT_CONNECTTIMEOUT => 15, // max 10s to connect
             CURLOPT_TIMEOUT => 30,        // max 15s total
         ]);
 
@@ -43,6 +44,7 @@ class HeatmapDataService
         if ($curl_errorno) {
             return [false, "cURL error: $curl_error"];
         }
+        
         if ($httpCode !== 200) {
             return [false, "HTTP error: $httpCode \nResponse: $response"];
         }

@@ -3,14 +3,17 @@
 namespace FHM\Controllers;
 
 use FHM\Configs\Config;
+use FHM\Helpers\Settings;
 use FHM\Services\ViewService as View;
 
 class ShortcodeController
 {
+    public static $shortcodeName = 'forex_heatmap';
+
     public static function register()
     {
         add_action('wp_enqueue_scripts', [self::class, 'registerAssets']);
-        add_shortcode('forex_heatmap', [self::class, 'render']);
+        add_shortcode(self::$shortcodeName, [self::class, 'render']);
     }
 
     public static function registerAssets()
@@ -45,13 +48,12 @@ class ShortcodeController
             FHM_VERSION
         );
 
-        $options = get_option('fhm_settings', []);
-        $defaults = Config::get_settings_defaults();
+        $settings = Settings::instance();
 
         wp_localize_script('fh-heatmap', 'FH_CONFIG', [
             'restUrl' => esc_url_raw(Config::get_endpoint_url()),
             'nonce'   => wp_create_nonce('wp_rest'),
-            'updateInterval' => $options['ui_update_interval'] ?? $defaults['ui_update_interval']
+            'updateInterval' => $settings->ui_update_interval(),
         ]);
     }
 
@@ -60,15 +62,15 @@ class ShortcodeController
         $atts = shortcode_atts([
             'pairs' => '',   // comma separated, optional
             'view'  => 'percent',
-        ], $atts, 'forex_heatmap');
+        ], $atts, self::$shortcodeName);
 
+        // Enqueue scripts and styles
         wp_enqueue_script('fh-heatmap');
         wp_enqueue_style('fh-heatmap-css');
-
         wp_enqueue_script('data-tables');
         wp_enqueue_style('data-tables-css');
 
-        // Render the view (resources/views/shortcode.php)
+        // Render the view
         return View::render('shortcode', ['fhm_atts' => $atts]);
     }
 }
